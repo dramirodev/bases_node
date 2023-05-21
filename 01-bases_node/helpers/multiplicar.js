@@ -9,7 +9,7 @@ const imprimirTablaDeMultiplicar = (tabla, base) => {
 }
 const crearArchivo = async (base = 5, salida) => {
   try {
-    fs.writeFileSync(`tabla-${base}.txt`, salida);
+    fs.writeFileSync(`./salida/tabla-${base}.txt`, salida);
     return `tabla-${base}.txt creado`;
   } catch (e) {
     throw e;
