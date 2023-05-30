@@ -1,6 +1,5 @@
 import 'colors';
 import inquirer from 'inquirer';
-import {createInterface} from "readline";
 import Tarea from "../dto/Tarea";
 import {Tareas} from "../interfaces/Tareas";
 
@@ -56,7 +55,7 @@ export default class MenuController {
   async pause() {
     await inquirer.prompt([
       {
-        message: `\nPresione ${'ENTER'.green} para continuar`,
+        message: `Presione ${'ENTER'.green} para continuar`,
         type: 'input',
         name: 'enter',
       }]);
@@ -76,23 +75,23 @@ export default class MenuController {
               }
               return true;
             },
-            message: 'Descripción de la tarea: '.green,
+            message: 'Descripción de la tarea: '.yellow,
           }]);
 
         const newTask = new Tarea(description);
         this.provider.addTask(newTask);
+        console.log('Tarea creada correctamente \n'.green);
         break;
       case '2':
-        console.log('Listar tareas');
         this.provider.listTasks();
         break;
       case '3':
         console.log('Listar tareas completadas');
-        // this.provider.listCompletedTasks();
+        this.provider.listCompletedTasks();
         break;
       case '4':
         console.log('Listar tareas pendientes');
-        // this.provider.listPendingTasks();
+        this.provider.listPendingTasks();
         break;
       case '5':
         console.log('Completar tarea(s)');
@@ -118,15 +117,15 @@ export default class MenuController {
   }
 
 
-  public readInput(message: string): void {
-    const readline = createInterface({
-      input: process.stdin,
-      output: process.stdout
-    });
-
-    readline.question(message, (opt: string) => {
-      this.opt = opt;
-      readline.close();
-    });
-  }
+  // public readInput(message: string): void {
+  //   const readline = createInterface({
+  //     input: process.stdin,
+  //     output: process.stdout
+  //   });
+  //
+  //   readline.question(message, (opt: string) => {
+  //     this.opt = opt;
+  //     readline.close();
+  //   });
+  // }
 }

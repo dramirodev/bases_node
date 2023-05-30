@@ -30,9 +30,9 @@ export default class TareasProvider implements Tareas {
   }
 
   listTasks(): void {
-    console.log('Listar tareas');
-    this.tasks.forEach((task) => {
-      console.log(task.description);
+    console.log("\nListado de tareas".underline.bgWhite);
+    this.tasks.forEach((task, ) => {
+      console.log(`${task.description} :: ${task.completadoEn ? 'Completada'.green : 'Pendiente'.red} `);
     });
   }
 
