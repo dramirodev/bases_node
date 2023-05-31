@@ -1,4 +1,4 @@
-import MenuController from "./contorller/MenuController";
+import MenuController from "./controller/MenuController";
 import TareasProvider from "./providers/TareasProvider";
 
 const taskProvider = new TareasProvider();
