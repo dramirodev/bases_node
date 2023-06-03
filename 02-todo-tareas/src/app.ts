@@ -1,8 +1,8 @@
 import MenuController from "./controller/MenuController";
-import {DBTareasImpl} from "./services/DBTareasImpl";
-import TareasImpl from "./services/TareasImpl";
+import {DBTaskImpl} from "./services/DBTaskImpl";
+import TasksImpl from "./services/TasksImpl";
 
-const instance =TareasImpl.getInstance(new DBTareasImpl());
+const instance =TasksImpl.getInstance(new DBTaskImpl());
 
 function main() {
   const menu = new MenuController(instance);

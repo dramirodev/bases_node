@@ -1,22 +1,29 @@
 {
   "ts-node": {
+    "files": true,
     "esm": true,
     "experimentalSpecifierResolution": "node"
   },
   "compilerOptions": {
-    "module": "es2020",
-    "target": "es2018",
+    "target": "ES2020",
+    "lib": [
+      "es6"
+    ],
+    "module": "ESNEXT",
     "moduleResolution": "node",
     "rootDir": "src",
-    "outDir": "dist",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "outDir": "build",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "noImplicitAny": true,
     "skipLibCheck": true
   },
-  "include": [
-    "src/**/*",
-    "src/index.ts",
-    "global.d.ts"
+  "exclude": [
+    "./build",
+    "jest.config.ts",
+    "./test"
   ]
 }

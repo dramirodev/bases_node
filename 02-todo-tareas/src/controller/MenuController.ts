@@ -1,19 +1,20 @@
 import 'colors';
 import inquirer from 'inquirer';
-import Tarea from "../dto/Tarea";
-import {Tareas} from "../interfaces/Tareas";
+import Task from "../models/Task";
+import {Tasks} from "../interfaces/Tasks";
 
 
 export default class MenuController {
 
-  private provider: any;
+  private service: Tasks;
   private opt: string = '';
 
-  constructor(provider: Tareas) {
-    this.provider = provider;
+  constructor(provider: Tasks) {
+    this.service = provider;
   }
 
   private async menu() {
+    console.clear();
     return inquirer.prompt([
       {
         type: 'list',
@@ -78,20 +79,18 @@ export default class MenuController {
             message: 'Descripción de la tarea: '.yellow,
           }]);
 
-        const newTask = new Tarea(description);
-        this.provider.addTask(newTask);
+        const newTask = new Task(description);
+        this.service.add(newTask);
         console.log('Tarea creada correctamente \n'.green);
         break;
       case '2':
-        this.provider.listTasks();
+        this.service.list();
         break;
       case '3':
-        console.log('Listar tareas completadas');
-        this.provider.listCompletedTasks();
+        this.service.listCompleted();
         break;
       case '4':
-        console.log('Listar tareas pendientes');
-        this.provider.listPendingTasks();
+        this.service.listPending();
         break;
       case '5':
         console.log('Completar tarea(s)');
@@ -99,7 +98,7 @@ export default class MenuController {
         break;
       case '6':
         console.log('Borrar tarea');
-        // this.provider.deleteTask();
+        // this.provider.delete();
         break;
       default:
         break;

@@ -1,63 +1,66 @@
-import Tarea from "../dto/Tarea";
+import Task from "../models/Task";
 import {Db} from "../interfaces/Db";
-import {Tareas} from "../interfaces/Tareas";
+import {Tasks} from "../interfaces/Tasks";
 
-export default class TareasImpl implements Tareas {
-  static _instance: TareasImpl | null = null;
-  private tasks: Map<string, Tarea>;
-  private db: Db<Tarea>;
+export default class TasksImpl implements Tasks {
+  static _instance: TasksImpl | null = null;
+  private tasks: Map<string, Task>;
+  private db: Db<Task>;
 
-  constructor(db: Db<Tarea>) {
+  constructor(db: Db<Task>) {
     this.db = db;
     this.tasks = this.db.readDB() || new Map();
   }
 
-  static getInstance(db: Db<Tarea>) {
+  static getInstance(db: Db<Task>) {
     return this._instance || (this._instance = new this(db));
   }
 
-  addTask(task: Tarea): void {
+  add(task: Task): void {
     this.tasks.set(task.id, task);
     this.db.saveDB(this.tasks);
   }
 
-  deleteTask(task: string): void {
+  delete(task: string): void {
     this.tasks.delete(task);
     this.db.saveDB(this.tasks);
   }
 
-  listCompletedTasks(): void {
+  listCompleted(): void {
     console.log("\nListado de tareas completadas\n".underline.bgWhite);
     let index = 0;
     for(const [key, task] of this.tasks) {
       if (task.completadoEn) {
-        console.log(`${index + 1}. ${task.description} :: ${task.completadoEn ? 'Completada'.green : 'Pendiente'.red}`);
+        console.log(`${index + 1}.`.green);
+        task.print();
       }
       index++;
     }
   }
 
-  listPendingTasks(): void {
+  listPending(): void {
     console.log("\nListado de tareas pendientes\n".underline.bgWhite);
     let index = 0;
     for(const [key, task] of this.tasks) {
       if (!task.completadoEn) {
-        console.log(`${index + 1}. ${task.description} :: ${task.completadoEn ? 'Completada'.green : 'Pendiente'.red}`);
+        console.log(`${index + 1}.`.green);
+        task.print();
       }
       index++;
     }
   }
 
-  listTasks(): void {
+  list(): void {
     let index = 0;
     console.log("\nListado de tareas".underline);
-    for(const [key, value] of this.tasks) {
-      console.log(`${index + 1}. ${value.description} :: ${value.completadoEn ? 'Completada'.green : 'Pendiente'.red}`);
+    for(const [key, task] of this.tasks) {
+      console.log(`${index + 1}.`.green);
+      task.print();
       index++;
     }
   }
 
-  completeTask(tasks: string): void {
+  complete(tasks: string): void {
     this.tasks.forEach((task) => {
       if (task.id === tasks) {
         task.completadoEn = new Date();
