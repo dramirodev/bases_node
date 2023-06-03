@@ -1,7 +1,8 @@
 import 'colors';
 import inquirer from 'inquirer';
-import Task from "../models/Task";
+import {completeMenu, createTaskMenu} from "../helpers";
 import {Tasks} from "../interfaces/Tasks";
+import Task from "../models/Task";
 
 
 export default class MenuController {
@@ -66,19 +67,7 @@ export default class MenuController {
   async manageOption() {
     switch (this.opt) {
       case '1':
-        const {description} = await inquirer.prompt([
-          {
-            type: 'input',
-            name: 'description',
-            validate(value: string) {
-              if (value.length === 0) {
-                return 'Por favor ingrese una descripción: '.red;
-              }
-              return true;
-            },
-            message: 'Descripción de la tarea: '.yellow,
-          }]);
-
+        const description = await createTaskMenu();
         const newTask = new Task(description);
         this.service.add(newTask);
         console.log('Tarea creada correctamente \n'.green);
@@ -93,12 +82,12 @@ export default class MenuController {
         this.service.listPending();
         break;
       case '5':
-        console.log('Completar tarea(s)');
-        // this.provider.completeTasks();
+        const ids = await completeMenu(this.service.getTasks());
+        this.service.complete(ids);
         break;
       case '6':
         console.log('Borrar tarea');
-        // this.provider.delete();
+        // this.service.delete();
         break;
       default:
         break;
