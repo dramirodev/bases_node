@@ -1,3 +1,4 @@
+import {printList, printTask} from "../helpers";
 import Task from "../models/Task";
 import {Db} from "../interfaces/Db";
 import {Tasks} from "../interfaces/Tasks";
@@ -28,36 +29,26 @@ export default class TasksImpl implements Tasks {
 
   listCompleted(): void {
     console.log("\nListado de tareas completadas\n".underline.bgWhite);
-    let index = 0;
-    for(const [key, task] of this.tasks) {
+    printList(this.tasks, (index: number, task:Task) => {
       if (task.completadoEn) {
-        console.log(`${index + 1}.`.green);
-        task.print();
+        printTask(index, task);
       }
-      index++;
-    }
+    });
   }
 
   listPending(): void {
     console.log("\nListado de tareas pendientes\n".underline.bgWhite);
-    let index = 0;
-    for(const [key, task] of this.tasks) {
+    printList(this.tasks, (index: number, task:Task) => {
       if (!task.completadoEn) {
-        console.log(`${index + 1}.`.green);
-        task.print();
+        printTask(index, task);
       }
-      index++;
-    }
+    });
   }
 
   list(): void {
-    let index = 0;
-    console.log("\nListado de tareas".underline);
-    for(const [key, task] of this.tasks) {
-      console.log(`${index + 1}.`.green);
-      task.print();
-      index++;
-    }
+    printList(this.tasks, (index: number, task:Task) => {
+        printTask(index, task);
+    });
   }
 
   complete(tasks: string): void {
