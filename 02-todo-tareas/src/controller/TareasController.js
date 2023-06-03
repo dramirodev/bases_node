@@ -1,10 +1,10 @@
 import {Tarea} from "../models/Tarea.js";
 import {Tareas} from "../models/Tareas.js";
-import {FilesController} from "./FilesController.js";
+import {DBTareasImpl} from "../services/DBTareasImpl.ts";
 
 export class TareasController {
   _tareas = null;
-  _fs = new FilesController();
+  _fs = new DBTareasImpl();
 
   constructor() {
     this._tareas = Tareas.instance;
