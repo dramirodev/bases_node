@@ -9,7 +9,9 @@ export interface Tasks {
 
   listPending(): void;
 
-  complete(tasks: string): void;
+  complete(tasks: string[]): void;
 
   delete(task: string): void;
+
+  getTasks(): Map<string, Task>;
 }
