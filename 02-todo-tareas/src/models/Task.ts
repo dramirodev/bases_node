@@ -11,7 +11,7 @@ export default class Task {
     this.completadoEn = completeAt;
   }
 
-   print() {
-    console.log(`${this.description} :: ${this.completadoEn ? 'Completada'.green : 'Pendiente'.red}`);
+   toString(): string {
+    return (`${this.description} :: ${this.completadoEn ? 'Completada' : 'Pendiente'}`);
   }
 }
