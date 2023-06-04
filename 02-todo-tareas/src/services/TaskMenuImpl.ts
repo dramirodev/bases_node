@@ -26,7 +26,7 @@ export class TaskMenuImpl implements Menu {
       return {
         value: task.id,
         name: task.description,
-        checked: !!task.completadoEn,
+        checked: !!task.completedAt,
       };
     });
     const {ids} = await inquirer.prompt([
@@ -58,7 +58,7 @@ export class TaskMenuImpl implements Menu {
     return id;
   }
 
-  async menu() {
+  async menu(): Promise<void> {
     console.clear();
     const {option} = await inquirer.prompt([
       {
@@ -100,7 +100,7 @@ export class TaskMenuImpl implements Menu {
     this.option = option;
   }
 
-  async pause() {
+  async pause(): Promise<void> {
     await inquirer.prompt([
       {
         message: `Press ${'ENTER'.green} to continue`,

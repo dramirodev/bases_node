@@ -5,7 +5,7 @@ import {Db} from "../interfaces/Db";
 export class DBTaskImpl implements Db<Task> {
 
   static FILE_NAME = process.env.DB_FILE_NAME || 'db/data.json';
-  saveDB = (data: Map<string, Task>) => {
+  saveDB = (data: Map<string, Task>): void => {
     fs.writeFileSync(DBTaskImpl.FILE_NAME, JSON.stringify(Object.fromEntries(data)));
   };
 

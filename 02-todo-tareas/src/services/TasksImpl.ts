@@ -14,7 +14,7 @@ export default class TasksImpl implements Tasks {
     this._tasks = this.db.readDB() || new Map();
   }
 
-  static getInstance(db: Db<Task>) {
+  static getInstance(db: Db<Task>): TasksImpl {
     return this.instance || (this.instance = new this(db));
   }
 
@@ -30,7 +30,7 @@ export default class TasksImpl implements Tasks {
 
   listCompleted(): void {
     printList(this._tasks, (index: number, task: Task) => {
-      if (task.completadoEn) {
+      if (task.completedAt) {
         printTask(index, task);
       }
     });
@@ -38,7 +38,7 @@ export default class TasksImpl implements Tasks {
 
   listPending(): void {
     printList(this._tasks, (index: number, task: Task) => {
-      if (!task.completadoEn) {
+      if (!task.completedAt) {
         printTask(index, task);
       }
     });
@@ -53,9 +53,9 @@ export default class TasksImpl implements Tasks {
   complete(tasks: string[]): void {
     this._tasks.forEach((task) => {
       if (tasks.includes(task.id)) {
-        task.completadoEn = new Date();
+        task.completedAt = new Date();
       }else {
-        task.completadoEn = null;
+        task.completedAt = null;
       }
     });
     this.db.saveDB(this._tasks);

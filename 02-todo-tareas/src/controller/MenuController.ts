@@ -13,7 +13,7 @@ export default class MenuController {
     this.menu = menu;
   }
 
-  async manageOption() {
+  async manageOption(): Promise<void> {
     switch (this.menu.getOption()) {
       case '1':
         const description = await this.menu.createTaskMenu();
@@ -46,7 +46,7 @@ export default class MenuController {
     await this.menu.pause();
   }
 
-  public async showMenu() {
+  public async showMenu(): Promise<void> {
     do {
       await this.menu.menu();
       await this.manageOption();
