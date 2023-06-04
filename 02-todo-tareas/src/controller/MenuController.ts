@@ -19,15 +19,17 @@ export default class MenuController {
         const description = await this.menu.createTaskMenu();
         const newTask = new Task(description);
         this.tasks.add(newTask);
-        console.log('Tarea creada correctamente \n'.green);
+        console.log('Task created successfully\n'.green);
         break;
       case '2':
         this.tasks.list();
         break;
       case '3':
+        console.log("\nCompleted tasks list\n".underline.bgWhite);
         this.tasks.listCompleted();
         break;
       case '4':
+        console.log("\nTo-do list\n".underline.bgWhite);
         this.tasks.listPending();
         break;
       case '5':

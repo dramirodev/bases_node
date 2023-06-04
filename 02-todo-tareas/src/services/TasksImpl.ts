@@ -29,7 +29,6 @@ export default class TasksImpl implements Tasks {
   }
 
   listCompleted(): void {
-    console.log("\nListado de tareas completadas\n".underline.bgWhite);
     printList(this._tasks, (index: number, task: Task) => {
       if (task.completadoEn) {
         printTask(index, task);
@@ -38,7 +37,6 @@ export default class TasksImpl implements Tasks {
   }
 
   listPending(): void {
-    console.log("\nListado de tareas pendientes\n".underline.bgWhite);
     printList(this._tasks, (index: number, task: Task) => {
       if (!task.completadoEn) {
         printTask(index, task);

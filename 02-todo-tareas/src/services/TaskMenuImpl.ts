@@ -12,11 +12,11 @@ export class TaskMenuImpl implements Menu {
         name: 'description',
         validate(value: string) {
           if (value.length === 0) {
-            return 'Por favor ingrese una descripción: '.red;
+            return 'Please enter a description: '.red;
           }
           return true;
         },
-        message: 'Descripción de la tarea: '.yellow,
+        message: 'Task description: '.yellow,
       }]);
     return description;
   }
@@ -33,7 +33,7 @@ export class TaskMenuImpl implements Menu {
       {
         type: "checkbox",
         name: "ids",
-        message: "Seleccione",
+        message: "Select tasks to be completed",
         choices,
       },
     ]);
@@ -51,7 +51,7 @@ export class TaskMenuImpl implements Menu {
       {
         type: "list",
         name: "id",
-        message: "Borrar",
+        message: "Delete task",
         choices,
       },
     ]);
@@ -64,35 +64,35 @@ export class TaskMenuImpl implements Menu {
       {
         type: 'list',
         name: 'option',
-        message: '¿Qué desea hacer?'.underline.yellow,
+        message: 'What would you like to do?'.underline.yellow,
         choices: [
           {
             value: '1',
-            name: `${'1.'.green} Crear tarea`
+            name: `${'1.'.green} Create task`
           },
           {
             value: '2',
-            name: `${'2.'.green} Listar tareas`
+            name: `${'2.'.green} List tasks`
           },
           {
             value: '3',
-            name: `${'3.'.green} Listar tareas completadas`
+            name: `${'3.'.green} List completed tasks`
           },
           {
             value: '4',
-            name: `${'4.'.green} Listar tareas pendientes`
+            name: `${'4.'.green} List pending tasks`
           },
           {
             value: '5',
-            name: `${'5.'.green} Completar tarea(s)`
+            name: `${'5.'.green} Complete task(s)`
           },
           {
             value: '6',
-            name: `${'6.'.green} Borrar tarea`
+            name: `${'6.'.green} Delete task`
           },
           {
             value: '0',
-            name: `${'0.'.green} Salir\n`
+            name: `${'0.'.green} Exit\n`
           }
         ]
       }]);
@@ -103,7 +103,7 @@ export class TaskMenuImpl implements Menu {
   async pause() {
     await inquirer.prompt([
       {
-        message: `Presione ${'ENTER'.green} para continuar`,
+        message: `Press ${'ENTER'.green} to continue`,
         type: 'input',
         name: 'enter',
       }]);
