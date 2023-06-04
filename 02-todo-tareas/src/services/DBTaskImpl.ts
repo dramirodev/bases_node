@@ -1,11 +1,15 @@
 import fs from "fs";
 import Task from "../models/Task";
-import {Db} from "../interfaces/Db";
+import {Database} from "../interfaces/Database";
 
-export class DBTaskImpl implements Db<Task> {
+export class DBTaskImpl implements Database<Task> {
 
-  static FILE_NAME = process.env.DB_FILE_NAME || 'db/data.json';
+  static FILE_NAME = process.env.DB_FILE_NAME || './db/db.json';
+  static DIRECTORY = process.env.DB_DIRECTORY || './db';
   saveDB = (data: Map<string, Task>): void => {
+    if (!fs.existsSync(DBTaskImpl.DIRECTORY)) {
+      fs.mkdirSync(DBTaskImpl.DIRECTORY, { recursive: true });
+    }
     fs.writeFileSync(DBTaskImpl.FILE_NAME, JSON.stringify(Object.fromEntries(data)));
   };
 

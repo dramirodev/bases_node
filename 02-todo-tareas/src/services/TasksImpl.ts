@@ -1,5 +1,5 @@
 import {printList, printTask} from "../helpers";
-import {Db} from "../interfaces/Db";
+import {Database} from "../interfaces/Database";
 import {Tasks} from "../interfaces/Tasks";
 import Task from "../models/Task";
 
@@ -7,14 +7,14 @@ export default class TasksImpl implements Tasks {
 
   static instance: TasksImpl | null = null;
   private readonly _tasks: Map<string, Task>;
-  private readonly db: Db<Task>;
+  private readonly db: Database<Task>;
 
-  constructor(db: Db<Task>) {
+  constructor(db: Database<Task>) {
     this.db = db;
     this._tasks = this.db.readDB() || new Map();
   }
 
-  static getInstance(db: Db<Task>): TasksImpl {
+  static getInstance(db: Database<Task>): TasksImpl {
     return this.instance || (this.instance = new this(db));
   }
 
