@@ -1,7 +1,8 @@
 const {response} = require('express');
 
-const User = require('../models/user');
+
 const {encryptPassword} = require("../helpers/encrypt");
+const {User} = require("../models");
 
 const userGet = async (req, res = response) => {
   const {limit = 5, from = 0} = req.query;
@@ -42,14 +43,17 @@ const userPost = async (req, res = response) => {
 
   const {name, email, password, role} = req.body;
 
-  // Encrypt password
-  const passwordHash = encryptPassword(password);
+  const usuario = new User({name, email, password, role});
 
-  const {password: pass, ...user} = new User({name, email, password: passwordHash, role});
-  await user.save();
+
+  // Encrypt password
+  usuario.password =  encryptPassword(password);
+
+
+  await usuario.save()
 
   res.json({
-    user
+    usuario
   });
 };
 
