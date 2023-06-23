@@ -21,7 +21,7 @@ const validateJwt = async (req, res, next) => {
       });
     }
 
-    if (!user?.state) {
+    if (!user?.active) {
       return res.status(401).json({
         msg: 'token no válido'
       });
